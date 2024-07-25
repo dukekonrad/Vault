@@ -11,6 +11,6 @@ namespace VaultDatabase
         }
 
         public virtual DbSet<Account> Accounts { set; get; }
-        public virtual DbSet<Operation> Operations { set; get; }
+        public virtual DbSet<Transaction> Transactions { set; get; }
     }
 }

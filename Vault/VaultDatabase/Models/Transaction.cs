@@ -6,7 +6,7 @@ using VaultContracts.ViewModels;
 
 namespace VaultDatabase.Models
 {
-    public class Operation : IOperation
+    public class Transaction : ITransaction
     {
         public int Id { get; set; }
 
@@ -26,9 +26,9 @@ namespace VaultDatabase.Models
 
         [Required]
         public DateTime ExecutionDate { get; set; } = DateTime.Now;
-        public static Operation Create(OperationBindingModel model, VaultContext context)
+        public static Transaction Create(TransactionBindingModel model, VaultContext context)
         {
-            return new Operation()
+            return new Transaction()
             {
                 Id = model.Id,
                 AccountId = model.AccountId,
@@ -40,12 +40,12 @@ namespace VaultDatabase.Models
             };
         }
 
-        public void Update(OperationBindingModel model)
+        public void Update(TransactionBindingModel model)
         {
             Description = model.Description;
         }
 
-        public OperationViewModel GetViewModel => new()
+        public TransactionViewModel GetViewModel => new()
         {
             Id = Id,
             AccountId = AccountId,

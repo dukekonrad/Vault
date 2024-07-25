@@ -20,7 +20,7 @@ namespace VaultDatabase.Models
         public double Balance { get; set; }
 
         [ForeignKey("AccountId")]
-        public virtual List<Operation> Operations { get; set; } = new();
+        public virtual List<Transaction> Transactions { get; set; } = new();
 
         public static Account Create(AccountBindingModel model)
         {

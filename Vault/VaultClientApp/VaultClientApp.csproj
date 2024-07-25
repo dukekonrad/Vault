@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VaultBusinessLogic\VaultBusinessLogic.csproj" />
     <ProjectReference Include="..\VaultContracts\VaultContracts.csproj" />
     <ProjectReference Include="..\VaultDatabase\VaultDatabase.csproj" />
   </ItemGroup>

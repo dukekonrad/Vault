@@ -24,7 +24,7 @@ namespace VaultDatabase.Implements
                         Id = x.Id,
                         Owner = x.Owner,
                         Purpose = x.Purpose,
-                        Balance = x.Operations.Sum(y => y.Amount)
+                        Balance = x.Transactions.Sum(y => y.Amount)
                     }.GetViewModel)
                     .ToList();
         }
@@ -42,7 +42,7 @@ namespace VaultDatabase.Implements
                         Id = x.Id,
                         Owner = x.Owner,
                         Purpose = x.Purpose,
-                        Balance = x.Operations.Sum(y => y.Amount)
+                        Balance = x.Transactions.Sum(y => y.Amount)
                     }.GetViewModel)
                     .ToList();
         }
@@ -60,7 +60,7 @@ namespace VaultDatabase.Implements
                         Id = x.Id,
                         Owner = x.Owner,
                         Purpose = x.Purpose,
-                        Balance = x.Operations.Sum(y => y.Amount)
+                        Balance = x.Transactions.Sum(y => y.Amount)
                     })
                     .FirstOrDefault()?
                     .GetViewModel;

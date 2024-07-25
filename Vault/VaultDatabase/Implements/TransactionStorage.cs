@@ -7,63 +7,63 @@ using VaultDatabase.Models;
 
 namespace VaultDatabase.Implements
 {
-    public class OperationStorage : IOperationStorage
+    public class TransactionStorage : ITransactionStorage
     {
         private readonly VaultContext _context;
 
-        public OperationStorage(VaultContext context)
+        public TransactionStorage(VaultContext context)
         {
             _context = context;
         }
 
-        public List<OperationViewModel> GetFullList()
+        public List<TransactionViewModel> GetFullList()
         {
-            return _context.Operations
+            return _context.Transactions
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
 
-        public List<OperationViewModel> GetFilteredList(OperationSearchModel model)
+        public List<TransactionViewModel> GetFilteredList(TransactionSearchModel model)
         {
             if (!model.AccountId.HasValue)
             {
                 return new();
             }
-            return _context.Operations
+            return _context.Transactions
                     .Include(x => x.Account)
                     .Where(x => x.AccountId == model.AccountId)
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
 
-        public OperationViewModel? GetElement(OperationSearchModel model)
+        public TransactionViewModel? GetElement(TransactionSearchModel model)
         {
             if (!model.Id.HasValue)
             {
                 return new();
             }
-            return _context.Operations
+            return _context.Transactions
                     .Include(x => x.Account)
                     .FirstOrDefault(x => x.Id == model.Id)?
                     .GetViewModel;
         }
 
-        public OperationViewModel? Insert(OperationBindingModel model)
+        public TransactionViewModel? Insert(TransactionBindingModel model)
         {
-            var newOperation = Operation.Create(model, _context);
+            var newOperation = Transaction.Create(model, _context);
             if (newOperation == null)
             {
                 return null;
             }
 
-            _context.Operations.Add(newOperation);
+            _context.Transactions.Add(newOperation);
             _context.SaveChanges();
             return newOperation.GetViewModel;
         }
 
-        public OperationViewModel? Update(OperationBindingModel model)
+        public TransactionViewModel? Update(TransactionBindingModel model)
         {
-            var operation = _context.Operations.FirstOrDefault(x => x.Id == model.Id);
+            var operation = _context.Transactions.FirstOrDefault(x => x.Id == model.Id);
             if (operation == null)
             {
                 return null;
@@ -74,12 +74,12 @@ namespace VaultDatabase.Implements
             return operation.GetViewModel;
         }
 
-        public OperationViewModel? Delete(OperationBindingModel model)
+        public TransactionViewModel? Delete(TransactionBindingModel model)
         {
-            var operation = _context.Operations.FirstOrDefault(x => x.Id == model.Id);
+            var operation = _context.Transactions.FirstOrDefault(x => x.Id == model.Id);
             if (operation != null)
             {
-                _context.Operations.Remove(operation);
+                _context.Transactions.Remove(operation);
                 _context.SaveChanges();
                 return operation.GetViewModel;
             }

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultContracts", "VaultCont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultDatabase", "VaultDatabase\VaultDatabase.csproj", "{D4B0947F-51AA-4585-A89F-1408A3317057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultClientApp", "VaultClientApp\VaultClientApp.csproj", "{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultClientApp", "VaultClientApp\VaultClientApp.csproj", "{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultBusinessLogic", "VaultBusinessLogic\VaultBusinessLogic.csproj", "{187F7528-2518-4F04-A2C4-B87FCCD8FB0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187F7528-2518-4F04-A2C4-B87FCCD8FB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187F7528-2518-4F04-A2C4-B87FCCD8FB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187F7528-2518-4F04-A2C4-B87FCCD8FB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187F7528-2518-4F04-A2C4-B87FCCD8FB0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

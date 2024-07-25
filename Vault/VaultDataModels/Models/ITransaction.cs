@@ -1,6 +1,6 @@
 ﻿namespace VaultDataModels.Models
 {
-    public interface IOperation : IId
+    public interface ITransaction : IId
     {
         int AccountId { get; }
 
