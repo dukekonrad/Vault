@@ -4,6 +4,6 @@
     {
         public int? Id { get; set; }
 
-        public string? OGRN { get; set; }
+        public string? Owner { get; set; }
     }
 }

@@ -9,11 +9,14 @@ namespace VaultContracts.ViewModels
 
         public int AccountId { get; set; }
 
-        [DisplayName("Сумма")]
-        public double Amount { get; set; }
+        [DisplayName("Принимающий")]
+        public string Receiver { get; set; } = string.Empty;
 
         [DisplayName("Описание")]
         public string Description { get; set; } = string.Empty;
+
+        [DisplayName("Сумма")]
+        public double Amount { get; set; }
 
         [DisplayName("Дата выполнения")]
         public DateTime ExecutionDate { get; set; } = DateTime.Now;

@@ -6,7 +6,7 @@ namespace VaultContracts.BindingModels
     {
         public int Id { get; set; }
 
-        public string OGRN { get; set; } = string.Empty;
+        public string Owner { get; set; } = string.Empty;
 
         public string Purpose { get; set; } = string.Empty;
 

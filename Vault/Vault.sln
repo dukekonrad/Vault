@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultDataModels", "VaultDataModels\VaultDataModels.csproj", "{7CDFCEE5-C972-4195-A28B-C822F44F4252}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultDataModels", "VaultDataModels\VaultDataModels.csproj", "{7CDFCEE5-C972-4195-A28B-C822F44F4252}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultContracts", "VaultContracts\VaultContracts.csproj", "{8C5143FF-5ECA-423D-AE05-D134421AD3C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultContracts", "VaultContracts\VaultContracts.csproj", "{8C5143FF-5ECA-423D-AE05-D134421AD3C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaultDatabase", "VaultDatabase\VaultDatabase.csproj", "{D4B0947F-51AA-4585-A89F-1408A3317057}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaultClientApp", "VaultClientApp\VaultClientApp.csproj", "{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{8C5143FF-5ECA-423D-AE05-D134421AD3C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5143FF-5ECA-423D-AE05-D134421AD3C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5143FF-5ECA-423D-AE05-D134421AD3C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B0947F-51AA-4585-A89F-1408A3317057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B0947F-51AA-4585-A89F-1408A3317057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B0947F-51AA-4585-A89F-1408A3317057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B0947F-51AA-4585-A89F-1408A3317057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD90D15D-0222-4AF6-9A5D-BCF878D003B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

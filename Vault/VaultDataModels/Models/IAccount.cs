@@ -2,7 +2,7 @@
 {
     public interface IAccount : IId
     {
-        string OGRN { get; }
+        string Owner { get; }
 
         string Purpose { get; }
 

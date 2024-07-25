@@ -8,9 +8,11 @@ namespace VaultContracts.BindingModels
 
         public int AccountId { get; set; }
 
-        public double Amount { get; set; }
+        public string Receiver { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
+
+        public double Amount { get; set; }
 
         public DateTime ExecutionDate { get; set; } = DateTime.Now;
     }
