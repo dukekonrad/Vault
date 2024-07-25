@@ -9,22 +9,27 @@ namespace VaultDatabase.Implements
 {
     public class OperationStorage : IOperationStorage
     {
+        private readonly VaultContext _context;
+
+        public OperationStorage(VaultContext context)
+        {
+            _context = context;
+        }
+
         public List<OperationViewModel> GetFullList()
         {
-            using var context = new VaultContext();
-            return context.Operations
+            return _context.Operations
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
-        
+
         public List<OperationViewModel> GetFilteredList(OperationSearchModel model)
         {
             if (!model.AccountId.HasValue)
             {
                 return new();
             }
-            using var context = new VaultContext();
-            return context.Operations
+            return _context.Operations
                     .Include(x => x.Account)
                     .Where(x => x.AccountId == model.AccountId)
                     .Select(x => x.GetViewModel)
@@ -37,8 +42,7 @@ namespace VaultDatabase.Implements
             {
                 return new();
             }
-            using var context = new VaultContext();
-            return context.Operations
+            return _context.Operations
                     .Include(x => x.Account)
                     .FirstOrDefault(x => x.Id == model.Id)?
                     .GetViewModel;
@@ -46,40 +50,37 @@ namespace VaultDatabase.Implements
 
         public OperationViewModel? Insert(OperationBindingModel model)
         {
-            using var context = new VaultContext();
-            var newOperation = Operation.Create(model, context);
+            var newOperation = Operation.Create(model, _context);
             if (newOperation == null)
             {
                 return null;
             }
-            
-            context.Operations.Add(newOperation);
-            context.SaveChanges();
+
+            _context.Operations.Add(newOperation);
+            _context.SaveChanges();
             return newOperation.GetViewModel;
         }
 
         public OperationViewModel? Update(OperationBindingModel model)
         {
-            using var context = new VaultContext();
-            var operation = context.Operations.FirstOrDefault(x => x.Id == model.Id);
+            var operation = _context.Operations.FirstOrDefault(x => x.Id == model.Id);
             if (operation == null)
             {
                 return null;
             }
 
             operation.Update(model);
-            context.SaveChanges();
+            _context.SaveChanges();
             return operation.GetViewModel;
         }
 
         public OperationViewModel? Delete(OperationBindingModel model)
         {
-            using var context = new VaultContext();
-            var operation = context.Operations.FirstOrDefault(x => x.Id == model.Id);
+            var operation = _context.Operations.FirstOrDefault(x => x.Id == model.Id);
             if (operation != null)
             {
-                context.Operations.Remove(operation);
-                context.SaveChanges();
+                _context.Operations.Remove(operation);
+                _context.SaveChanges();
                 return operation.GetViewModel;
             }
             return null;

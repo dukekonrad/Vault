@@ -9,10 +9,16 @@ namespace VaultDatabase.Implements
 {
     public class AccountStorage : IAccountStorage
     {
+        private readonly VaultContext _context;
+
+        public AccountStorage(VaultContext context)
+        {
+            _context = context;
+        }
+
         public List<AccountViewModel> GetFullList()
         {
-            using var context = new VaultContext();
-            return context.Accounts
+            return _context.Accounts
                     .Select(x => new Account
                     {
                         Id = x.Id,
@@ -29,8 +35,7 @@ namespace VaultDatabase.Implements
             {
                 return new();
             }
-            using var context = new VaultContext();
-            return context.Accounts
+            return _context.Accounts
                     .Where(x => x.Owner.Contains(model.Owner))
                     .Select(x => new Account
                     {
@@ -48,8 +53,7 @@ namespace VaultDatabase.Implements
             {
                 return new();
             }
-            using var context = new VaultContext();
-            return context.Accounts
+            return _context.Accounts
                     .Where(x => x.Id == model.Id)
                     .Select(x => new Account
                     {
@@ -64,40 +68,37 @@ namespace VaultDatabase.Implements
 
         public AccountViewModel? Insert(AccountBindingModel model)
         {
-            using var context = new VaultContext();
             var newAccount = Account.Create(model);
             if (newAccount == null)
             {
                 return null;
             }
 
-            context.Accounts.Add(newAccount);
-            context.SaveChanges();
+            _context.Accounts.Add(newAccount);
+            _context.SaveChanges();
             return newAccount.GetViewModel;
         }
 
         public AccountViewModel? Update(AccountBindingModel model)
         {
-            using var context = new VaultContext();
-            var account = context.Accounts.FirstOrDefault(x => x.Id == model.Id);
+            var account = _context.Accounts.FirstOrDefault(x => x.Id == model.Id);
             if (account == null)
             {
                 return null;
             }
 
             account.Update(model);
-            context.SaveChanges();
+            _context.SaveChanges();
             return account.GetViewModel;
         }
 
         public AccountViewModel? Delete(AccountBindingModel model)
         {
-            using var context = new VaultContext();
-            var account = context.Accounts.FirstOrDefault(x => x.Id == model.Id);
+            var account = _context.Accounts.FirstOrDefault(x => x.Id == model.Id);
             if (account != null)
             {
-                context.Accounts.Remove(account);
-                context.SaveChanges();
+                _context.Accounts.Remove(account);
+                _context.SaveChanges();
                 return account.GetViewModel;
             }
             return null;

@@ -397,3 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Vault/VaultClientApp/App.config
+/Vault/VaultClientApp/appsettings.json
+/Vault/VaultClientApp/App.config
+/Vault/VaultClientApp/appsettings.json
