@@ -27,7 +27,7 @@ namespace VaultDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Operations",
+                name: "Transactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -40,9 +40,9 @@ namespace VaultDatabase.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Operations", x => x.Id);
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Operations_Accounts_AccountId",
+                        name: "FK_Transactions_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
@@ -50,8 +50,8 @@ namespace VaultDatabase.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Operations_AccountId",
-                table: "Operations",
+                name: "IX_Transactions_AccountId",
+                table: "Transactions",
                 column: "AccountId");
         }
 
@@ -59,7 +59,7 @@ namespace VaultDatabase.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Operations");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "Accounts");

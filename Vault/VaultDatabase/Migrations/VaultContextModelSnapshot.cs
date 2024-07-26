@@ -43,7 +43,7 @@ namespace VaultDatabase.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("VaultDatabase.Models.Operation", b =>
+            modelBuilder.Entity("VaultDatabase.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,13 +72,13 @@ namespace VaultDatabase.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Operations");
+                    b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("VaultDatabase.Models.Operation", b =>
+            modelBuilder.Entity("VaultDatabase.Models.Transaction", b =>
                 {
                     b.HasOne("VaultDatabase.Models.Account", "Account")
-                        .WithMany("Operations")
+                        .WithMany("Transactions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -88,7 +88,7 @@ namespace VaultDatabase.Migrations
 
             modelBuilder.Entity("VaultDatabase.Models.Account", b =>
                 {
-                    b.Navigation("Operations");
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
