@@ -2,58 +2,51 @@
 using VaultContracts.BusinessLogicContracts;
 using VaultContracts.BindingModels;
 using VaultContracts.SearchModels;
-using VaultDatabase.Models;
 
 namespace VaultClientApp.Controllers
 {
     [Route("accounts")]
     public class AccountController : Controller
     {
-        private readonly ILogger<AccountController> _logger;
         private readonly IAccountLogic _accountLogic;
 
-        public AccountController(ILogger<AccountController> logger, IAccountLogic accountLogic)
+        public AccountController(IAccountLogic accountLogic)
         {
-            _logger = logger;
             _accountLogic = accountLogic;
         }
 
-        public IActionResult Index(int? account)
+		public IActionResult Index(int? number)
         {
-            return View(_accountLogic.ReadList(new AccountSearchModel { Id = account }));
-        }
+		    return View(_accountLogic.ReadList(!number.HasValue ? null : new AccountSearchModel { Id = number }));
+		}
 
-        #region Создание
-        [HttpGet ("create")]
+        [HttpGet ("cr8")]
         public IActionResult CreateAccount()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("cr8")]
         public IActionResult CreateAccount(AccountBindingModel model)
         {
             _accountLogic.Create(model);
             return Redirect("/accounts");
         }
-        #endregion
 
-        #region Изменение
-        [HttpGet ("update")]
+        [HttpGet ("upd")]
         public IActionResult UpdateAccount(int id)
         {
             return View(_accountLogic.ReadElement(new AccountSearchModel { Id = id }));
         }
 
-        [HttpPost]
+        [HttpPost ("upd")]
         public IActionResult UpdateBrand(AccountBindingModel model)
         {
             _accountLogic.Update(model);
             return Redirect("/accounts");
         }
-        #endregion
 
-        [HttpDelete]
+        [HttpPost ("del")]
         public IActionResult DeleteAccount(int id)
         {
             _accountLogic.Delete(new AccountBindingModel { Id = id });

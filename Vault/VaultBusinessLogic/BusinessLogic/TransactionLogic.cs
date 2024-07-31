@@ -93,10 +93,6 @@ namespace VaultBusinessLogic.BusinessLogic
                 return;
             }
 
-            if (string.IsNullOrEmpty(model.Receiver))
-            {
-                throw new ArgumentNullException("Transaction's receiver missing", nameof(model.Receiver));
-            }
             if (string.IsNullOrEmpty(model.Description))
             {
                 throw new ArgumentNullException("Transaction's description missing", nameof(model.Description));

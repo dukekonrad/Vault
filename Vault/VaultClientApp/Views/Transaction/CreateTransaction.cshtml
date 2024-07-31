@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using VaultContracts.ViewModels
+
+@model TransactionViewModel
 @{
+	ViewData["Title"] = "Осуществление операции";
 }
+
+<div class="text-center">
+	<h2 class="display-5">Осуществление операции</h2>
+</div>
+<form method="post" class="my-3">
+	<div class="row mb-1">
+		<div class="col-6 text-end">Счёт</div>
+		<div class="col-6">
+			<select name="AccountId" class="form-control" asp-items="@(new SelectList(@ViewBag.Accounts, "Id", "Id"))"></select>
+		</div>
+	</div>
+	<div class="row mb-1">
+		<p class="col-6 text-end">Принимающий</p>
+		<div class="col-6">
+			<input type="text" name="Receiver" required />
+		</div>
+	</div>
+	<div class="row mb-1">
+		<p class="col-6 text-end">Описание</p>
+		<div class="col-6">
+			<input type="text" name="Description" required />
+		</div>
+	</div>
+	<div class="row mb-1">
+		<p class="col-6 text-end">Сумма</p>
+		<div class="col-6">
+			<input type="number" name="Amount" required />
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<button type="submit" class="col-2 btn btn-success">Осуществить</button>
+	</div>
+</form>

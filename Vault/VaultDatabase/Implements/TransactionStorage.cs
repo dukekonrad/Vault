@@ -19,8 +19,9 @@ namespace VaultDatabase.Implements
         public List<TransactionViewModel> GetFullList()
         {
             return _context.Transactions
-                    .Select(x => x.GetViewModel)
-                    .ToList();
+				    .OrderBy(x => x.Id)
+					.Select(x => x.GetViewModel)
+					.ToList();
         }
 
         public List<TransactionViewModel> GetFilteredList(TransactionSearchModel model)
@@ -32,8 +33,9 @@ namespace VaultDatabase.Implements
             return _context.Transactions
                     .Include(x => x.Account)
                     .Where(x => x.AccountId == model.AccountId)
-                    .Select(x => x.GetViewModel)
-                    .ToList();
+					.OrderBy(x => x.Id)
+					.Select(x => x.GetViewModel)
+					.ToList();
         }
 
         public TransactionViewModel? GetElement(TransactionSearchModel model)

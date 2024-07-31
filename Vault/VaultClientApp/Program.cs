@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using VaultContracts.BusinessLogicContracts;
 using VaultContracts.StoragesContracts;
 using VaultDatabase;
@@ -18,19 +19,11 @@ builder.Services.AddTransient<ITransactionLogic, TransactionLogic>();
 builder.Services.AddDbContext<VaultContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 
-builder.Services.AddLogging(loggingBuilder =>
-{
-    loggingBuilder.AddConsole();
-    loggingBuilder.AddDebug();
+builder.Host.UseSerilog((context, services, configuration) => {
+	configuration.ReadFrom.Configuration(context.Configuration);
 });
 
 var app = builder.Build();
-
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

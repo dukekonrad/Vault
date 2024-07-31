@@ -19,7 +19,8 @@ namespace VaultDatabase.Implements
         public List<AccountViewModel> GetFullList()
         {
             return _context.Accounts
-                    .Select(x => new Account
+				    .OrderBy(x => x.Id)
+					.Select(x => new Account
                     {
                         Id = x.Id,
                         Owner = x.Owner,
@@ -31,20 +32,22 @@ namespace VaultDatabase.Implements
 
         public List<AccountViewModel> GetFilteredList(AccountSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.Owner))
+            if (!model.Id.HasValue && string.IsNullOrEmpty(model.Owner))
             {
                 return new();
             }
             return _context.Accounts
-                    .Where(x => x.Owner.Contains(model.Owner))
-                    .Select(x => new Account
+                    .Where(x => (model.Id.HasValue && x.Id == model.Id) || 
+                        (!string.IsNullOrEmpty(model.Owner) && x.Owner.Contains(model.Owner)))
+					.OrderBy(x => x.Id)
+					.Select(x => new Account
                     {
                         Id = x.Id,
                         Owner = x.Owner,
                         Purpose = x.Purpose,
                         Balance = x.Transactions.Sum(y => y.Amount)
                     }.GetViewModel)
-                    .ToList();
+					.ToList();
         }
 
         public AccountViewModel? GetElement(AccountSearchModel model)

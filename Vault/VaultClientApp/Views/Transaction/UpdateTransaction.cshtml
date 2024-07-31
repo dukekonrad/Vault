@@ -1,5 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using VaultContracts.ViewModels
+
+@model TransactionViewModel
+
 @{
+	ViewData["Title"] = "Редактирование операции";
 }
+
+
+<div class="text-center">
+	<h2 class="display-5">Редактирование операции</h2>
+</div>
+<form method="post" class="my-3">
+	<div class="row mb-1">
+		<p class="col-6 text-end">Описание</p>
+		<div class="col-6">
+			<input type="text" name="Description" value="@Html.DisplayFor(modelItem => Model.Description)" required />
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<button type="submit" class="col-2 btn btn-success">Редактировать</button>
+	</div>
+</form>

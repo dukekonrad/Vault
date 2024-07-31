@@ -14,6 +14,6 @@ namespace VaultContracts.BindingModels
 
         public double Amount { get; set; }
 
-        public DateTime ExecutionDate { get; set; } = DateTime.Now;
+        public DateTime ExecutionDate { get; set; } = DateTime.UtcNow;
     }
 }

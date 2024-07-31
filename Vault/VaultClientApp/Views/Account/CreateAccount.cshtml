@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using VaultContracts.ViewModels
+
+@model AccountViewModel
 @{
+	ViewData["Title"] = "Оформление счёта";
 }
+
+<div class="text-center">
+	<h2 class="display-5">Оформление счёта</h2>
+</div>
+<form method="post" class="my-3">
+	<div class="row mb-1">
+		<p class="col-6 text-end">Владелец</p>
+		<div class="col-6">
+			<input type="text" name="Owner" required />
+		</div>
+	</div>
+	<div class="row mb-1">
+		<p class="col-6 text-end">Назначение</p>
+		<div class="col-6">
+			<input type="text" name="Purpose" required />
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<button type="submit" class="col-2 btn btn-success">Оформить</button>
+	</div>
+</form>

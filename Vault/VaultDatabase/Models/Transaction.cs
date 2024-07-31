@@ -25,7 +25,7 @@ namespace VaultDatabase.Models
         public double Amount { get; set; }
 
         [Required]
-        public DateTime ExecutionDate { get; set; } = DateTime.Now;
+        public DateTime ExecutionDate { get; set; } = DateTime.UtcNow;
         public static Transaction Create(TransactionBindingModel model, VaultContext context)
         {
             return new Transaction()
