@@ -18,10 +18,10 @@ namespace VaultBusinessLogic.BusinessLogic
             _accountStorage = accountStorage;
         }
 
-        public List<AccountViewModel>? ReadList(AccountSearchModel? model)
+        public async Task<List<AccountViewModel>?> ReadList(AccountSearchModel? model)
         {
             _logger.LogInformation("ReadList || Id: {Id}; Owner: {Owner}", model?.Id, model?.Owner);
-            var list = model == null ? _accountStorage.GetFullList() : _accountStorage.GetFilteredList(model);
+            var list = model == null ? await _accountStorage.GetFullList() : await _accountStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList || Return null list");
@@ -31,14 +31,14 @@ namespace VaultBusinessLogic.BusinessLogic
             return list;
         }
 
-        public AccountViewModel? ReadElement(AccountSearchModel model)
+        public async Task<AccountViewModel?> ReadElement(AccountSearchModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
             _logger.LogInformation("ReadElement || Id: {Id}; Owner: {Owner}", model.Id, model.Owner);
-            var account = _accountStorage.GetElement(model);
+            var account = await _accountStorage.GetElement(model);
             if (account == null)
             {
                 _logger.LogWarning("ReadElement || Account not found");
@@ -48,10 +48,10 @@ namespace VaultBusinessLogic.BusinessLogic
             return account;
         }
 
-        public bool Create(AccountBindingModel model)
+        public async Task<bool> Create(AccountBindingModel model)
         {
             CheckModel(model);
-            if (_accountStorage.Insert(model) == null)
+            if (await _accountStorage.Insert(model) == null)
             {
                 _logger.LogWarning("Create || Operation failed");
                 return false;
@@ -59,10 +59,10 @@ namespace VaultBusinessLogic.BusinessLogic
             return true;
         }
 
-        public bool Update(AccountBindingModel model)
+        public async Task<bool> Update(AccountBindingModel model)
         {
             CheckModel(model);
-            if (_accountStorage.Update(model) == null)
+            if (await _accountStorage.Update(model) == null)
             {
                 _logger.LogWarning("Update || Operation failed");
                 return false;
@@ -70,11 +70,11 @@ namespace VaultBusinessLogic.BusinessLogic
             return true;
         }
 
-        public bool Delete(AccountBindingModel model)
+        public async Task<bool> Delete(AccountBindingModel model)
         {
             CheckModel(model, false);
             _logger.LogInformation("Delete || Id: {Id}", model.Id);
-            if (_accountStorage.Delete(model) == null)
+            if (await _accountStorage.Delete(model) == null)
             {
                 _logger.LogWarning("Delete || Operation failed");
                 return false;

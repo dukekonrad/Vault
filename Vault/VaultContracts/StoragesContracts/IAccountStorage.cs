@@ -6,16 +6,16 @@ namespace VaultContracts.StoragesContracts
 {
     public interface IAccountStorage
     {
-        List<AccountViewModel> GetFullList();
+        Task<List<AccountViewModel>> GetFullList();
 
-        List<AccountViewModel> GetFilteredList(AccountSearchModel model);
+        Task<List<AccountViewModel>> GetFilteredList(AccountSearchModel model);
 
-        AccountViewModel? GetElement(AccountSearchModel model);
+		Task<AccountViewModel?> GetElement(AccountSearchModel model);
 
-        AccountViewModel? Insert(AccountBindingModel model);
+		Task<AccountViewModel?> Insert(AccountBindingModel model);
 
-        AccountViewModel? Update(AccountBindingModel model);
+		Task<AccountViewModel?> Update(AccountBindingModel model);
 
-        AccountViewModel? Delete(AccountBindingModel model);
+		Task<AccountViewModel?> Delete(AccountBindingModel model);
     }
 }

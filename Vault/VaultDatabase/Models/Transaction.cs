@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using VaultDataModels.Models;
 using VaultContracts.BindingModels;
 using VaultContracts.ViewModels;
@@ -22,7 +21,7 @@ namespace VaultDatabase.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [Required]
         public DateTime ExecutionDate { get; set; } = DateTime.UtcNow;

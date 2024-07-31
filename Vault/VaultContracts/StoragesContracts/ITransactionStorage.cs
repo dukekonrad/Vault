@@ -6,16 +6,16 @@ namespace VaultContracts.StoragesContracts
 {
     public interface ITransactionStorage
     {
-        List<TransactionViewModel> GetFullList();
+		Task<List<TransactionViewModel>> GetFullList();
 
-        List<TransactionViewModel> GetFilteredList(TransactionSearchModel model);
+		Task<List<TransactionViewModel>> GetFilteredList(TransactionSearchModel model);
 
-        TransactionViewModel? GetElement(TransactionSearchModel model);
+		Task<TransactionViewModel?> GetElement(TransactionSearchModel model);
 
-        TransactionViewModel? Insert(TransactionBindingModel model);
+		Task<TransactionViewModel?> Insert(TransactionBindingModel model);
 
-        TransactionViewModel? Update(TransactionBindingModel model);
+		Task<TransactionViewModel?> Update(TransactionBindingModel model);
 
-        TransactionViewModel? Delete(TransactionBindingModel model);
+		Task<TransactionViewModel?> Delete(TransactionBindingModel model);
     }
 }

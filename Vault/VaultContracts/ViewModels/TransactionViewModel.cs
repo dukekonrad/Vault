@@ -16,7 +16,7 @@ namespace VaultContracts.ViewModels
         public string Description { get; set; } = string.Empty;
 
         [DisplayName("Сумма")]
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DisplayName("Дата выполнения")]
         public DateTime ExecutionDate { get; set; } = DateTime.UtcNow;

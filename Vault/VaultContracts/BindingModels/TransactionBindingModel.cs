@@ -12,7 +12,7 @@ namespace VaultContracts.BindingModels
 
         public string Description { get; set; } = string.Empty;
 
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public DateTime ExecutionDate { get; set; } = DateTime.UtcNow;
     }

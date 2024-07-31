@@ -10,6 +10,6 @@ namespace VaultContracts.BindingModels
 
         public string Purpose { get; set; } = string.Empty;
 
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
     }
 }

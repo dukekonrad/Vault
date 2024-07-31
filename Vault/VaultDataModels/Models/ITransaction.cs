@@ -8,7 +8,7 @@
 
         string Description { get; }
 
-        double Amount { get; }
+        decimal Amount { get; }
 
         DateTime ExecutionDate { get; }
     }

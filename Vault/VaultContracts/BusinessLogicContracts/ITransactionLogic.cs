@@ -6,14 +6,14 @@ namespace VaultContracts.BusinessLogicContracts
 {
     public interface ITransactionLogic
     {
-        List<TransactionViewModel>? ReadList(TransactionSearchModel? model);
+        Task<List<TransactionViewModel>?> ReadList(TransactionSearchModel? model);
 
-        TransactionViewModel? ReadElement(TransactionSearchModel model);
+        Task<TransactionViewModel?> ReadElement(TransactionSearchModel model);
 
-        bool Create(TransactionBindingModel model);
+        Task<bool> Create(TransactionBindingModel model);
 
-        bool Update(TransactionBindingModel model);
+        Task<bool> Update(TransactionBindingModel model);
 
-        bool Delete(TransactionBindingModel model);
+        Task<bool> Delete(TransactionBindingModel model);
     }
 }
