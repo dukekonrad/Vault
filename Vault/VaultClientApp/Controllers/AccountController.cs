@@ -5,7 +5,8 @@ using VaultContracts.SearchModels;
 
 namespace VaultClientApp.Controllers
 {
-    [Route("accounts")]
+	[Route("")]
+	[Route("accounts")]
     public class AccountController : Controller
     {
         private readonly IAccountLogic _accountLogic;

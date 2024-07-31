@@ -15,6 +15,6 @@ namespace VaultContracts.ViewModels
         public string Purpose { get; set; } = string.Empty;
 
         [DisplayName("Баланс")]
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
     }
 }

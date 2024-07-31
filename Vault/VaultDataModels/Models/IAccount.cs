@@ -6,6 +6,6 @@
 
         string Purpose { get; }
 
-        double Balance { get; }
+		decimal Balance { get; }
     }
 }

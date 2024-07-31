@@ -17,7 +17,7 @@ namespace VaultDatabase.Models
         public string Purpose { get; set; } = string.Empty;
 
         [NotMapped]
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
 
         [ForeignKey("AccountId")]
         public virtual List<Transaction> Transactions { get; set; } = new();
