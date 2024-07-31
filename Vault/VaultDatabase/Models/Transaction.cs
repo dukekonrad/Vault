@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using VaultDataModels.Models;
 using VaultContracts.BindingModels;
 using VaultContracts.ViewModels;

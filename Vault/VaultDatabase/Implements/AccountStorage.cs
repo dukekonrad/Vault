@@ -16,9 +16,9 @@ namespace VaultDatabase.Implements
             _context = context;
         }
 
-        public List<AccountViewModel> GetFullList()
+        public async Task<List<AccountViewModel>> GetFullList()
         {
-            return _context.Accounts
+            return await _context.Accounts
 				    .OrderBy(x => x.Id)
 					.Select(x => new Account
                     {
@@ -27,16 +27,16 @@ namespace VaultDatabase.Implements
                         Purpose = x.Purpose,
                         Balance = x.Transactions.Sum(y => y.Amount)
                     }.GetViewModel)
-                    .ToList();
+                    .ToListAsync();
         }
 
-        public List<AccountViewModel> GetFilteredList(AccountSearchModel model)
+        public async Task<List<AccountViewModel>> GetFilteredList(AccountSearchModel model)
         {
             if (!model.Id.HasValue && string.IsNullOrEmpty(model.Owner))
             {
                 return new();
             }
-            return _context.Accounts
+            return await _context.Accounts
                     .Where(x => (model.Id.HasValue && x.Id == model.Id) || 
                         (!string.IsNullOrEmpty(model.Owner) && x.Owner.Contains(model.Owner)))
 					.OrderBy(x => x.Id)
@@ -47,16 +47,16 @@ namespace VaultDatabase.Implements
                         Purpose = x.Purpose,
                         Balance = x.Transactions.Sum(y => y.Amount)
                     }.GetViewModel)
-					.ToList();
+					.ToListAsync();
         }
 
-        public AccountViewModel? GetElement(AccountSearchModel model)
+        public async Task<AccountViewModel?> GetElement(AccountSearchModel model)
         {
             if (!model.Id.HasValue)
             {
                 return new();
             }
-            return _context.Accounts
+            Account? account = await _context.Accounts
                     .Where(x => x.Id == model.Id)
                     .Select(x => new Account
                     {
@@ -65,11 +65,11 @@ namespace VaultDatabase.Implements
                         Purpose = x.Purpose,
                         Balance = x.Transactions.Sum(y => y.Amount)
                     })
-                    .FirstOrDefault()?
-                    .GetViewModel;
+                    .FirstOrDefaultAsync();
+            return account != null ? account.GetViewModel : new();
         }
 
-        public AccountViewModel? Insert(AccountBindingModel model)
+        public async Task<AccountViewModel?> Insert(AccountBindingModel model)
         {
             var newAccount = Account.Create(model);
             if (newAccount == null)
@@ -77,34 +77,35 @@ namespace VaultDatabase.Implements
                 return null;
             }
 
-            _context.Accounts.Add(newAccount);
-            _context.SaveChanges();
+            await _context.Accounts.AddAsync(newAccount);
+            await _context.SaveChangesAsync();
             return newAccount.GetViewModel;
         }
 
-        public AccountViewModel? Update(AccountBindingModel model)
+        public async Task<AccountViewModel?> Update(AccountBindingModel model)
         {
-            var account = _context.Accounts.FirstOrDefault(x => x.Id == model.Id);
+            var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Id == model.Id);
             if (account == null)
             {
                 return null;
             }
 
             account.Update(model);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return account.GetViewModel;
         }
 
-        public AccountViewModel? Delete(AccountBindingModel model)
+        public async Task<AccountViewModel?> Delete(AccountBindingModel model)
         {
-            var account = _context.Accounts.FirstOrDefault(x => x.Id == model.Id);
-            if (account != null)
+            var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (account == null)
             {
-                _context.Accounts.Remove(account);
-                _context.SaveChanges();
-                return account.GetViewModel;
-            }
-            return null;
-        }
+				return null;
+			}
+            
+			_context.Accounts.Remove(account);
+			await _context.SaveChangesAsync();
+			return account.GetViewModel;
+		}
     }
 }

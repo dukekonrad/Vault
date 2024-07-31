@@ -16,76 +16,77 @@ namespace VaultDatabase.Implements
             _context = context;
         }
 
-        public List<TransactionViewModel> GetFullList()
+        public async Task<List<TransactionViewModel>> GetFullList()
         {
-            return _context.Transactions
+            return await _context.Transactions
 				    .OrderBy(x => x.Id)
 					.Select(x => x.GetViewModel)
-					.ToList();
+					.ToListAsync();
         }
 
-        public List<TransactionViewModel> GetFilteredList(TransactionSearchModel model)
+        public async Task<List<TransactionViewModel>> GetFilteredList(TransactionSearchModel model)
         {
             if (!model.AccountId.HasValue)
             {
                 return new();
             }
-            return _context.Transactions
+            return await _context.Transactions
                     .Include(x => x.Account)
                     .Where(x => x.AccountId == model.AccountId)
 					.OrderBy(x => x.Id)
 					.Select(x => x.GetViewModel)
-					.ToList();
+					.ToListAsync();
         }
 
-        public TransactionViewModel? GetElement(TransactionSearchModel model)
+        public async Task<TransactionViewModel?> GetElement(TransactionSearchModel model)
         {
             if (!model.Id.HasValue)
             {
                 return new();
             }
-            return _context.Transactions
+            var transaction = await _context.Transactions
                     .Include(x => x.Account)
-                    .FirstOrDefault(x => x.Id == model.Id)?
-                    .GetViewModel;
+                    .FirstOrDefaultAsync(x => x.Id == model.Id);
+            return transaction != null ? transaction.GetViewModel : new();
         }
 
-        public TransactionViewModel? Insert(TransactionBindingModel model)
+        public async Task<TransactionViewModel?> Insert(TransactionBindingModel model)
         {
-            var newOperation = Transaction.Create(model, _context);
-            if (newOperation == null)
+            var newTransaction = Transaction.Create(model, _context);
+            if (newTransaction == null)
             {
                 return null;
             }
 
-            _context.Transactions.Add(newOperation);
-            _context.SaveChanges();
-            return newOperation.GetViewModel;
+            await _context.Transactions.AddAsync(newTransaction);
+            await _context.SaveChangesAsync();
+            return newTransaction.GetViewModel;
         }
 
-        public TransactionViewModel? Update(TransactionBindingModel model)
+        public async Task<TransactionViewModel?> Update(TransactionBindingModel model)
         {
-            var operation = _context.Transactions.FirstOrDefault(x => x.Id == model.Id);
-            if (operation == null)
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (transaction == null)
             {
                 return null;
             }
 
-            operation.Update(model);
-            _context.SaveChanges();
-            return operation.GetViewModel;
+            transaction.Update(model);
+            await _context.SaveChangesAsync();
+            return transaction.GetViewModel;
         }
 
-        public TransactionViewModel? Delete(TransactionBindingModel model)
+        public async Task<TransactionViewModel?> Delete(TransactionBindingModel model)
         {
-            var operation = _context.Transactions.FirstOrDefault(x => x.Id == model.Id);
-            if (operation != null)
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (transaction == null)
             {
-                _context.Transactions.Remove(operation);
-                _context.SaveChanges();
-                return operation.GetViewModel;
-            }
-            return null;
-        }
+				return null;
+			}
+            
+			_context.Transactions.Remove(transaction);
+			await _context.SaveChangesAsync();
+			return transaction.GetViewModel;
+		}
     }
 }

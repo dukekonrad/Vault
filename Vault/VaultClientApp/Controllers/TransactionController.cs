@@ -16,42 +16,42 @@ namespace VaultClientApp.Controllers
 			_transactionLogic = transactionLogic;
 			_accountLogic = accountLogic;
 		}
-		public IActionResult Index(int? account)
+		public async Task<IActionResult> Index(int? account)
 		{
-			return View(_transactionLogic.ReadList(!account.HasValue ? null : new TransactionSearchModel { AccountId = account }));
+			return View(await _transactionLogic.ReadList(!account.HasValue ? null : new TransactionSearchModel { AccountId = account }));
 		}
 
         [HttpGet("cr8")]
-        public IActionResult CreateTransaction()
+        public async Task<IActionResult> CreateTransaction()
         {
-			ViewBag.Accounts = _accountLogic.ReadList(null);
+			ViewBag.Accounts = await _accountLogic.ReadList(null);
 			return View();
         }
 
 		[HttpPost("cr8")]
-		public IActionResult CreateTransaction(TransactionBindingModel model)
+		public async Task<IActionResult> CreateTransaction(TransactionBindingModel model)
         {
-            _transactionLogic.Create(model);
+            await _transactionLogic.Create(model);
             return Redirect("/transactions");
         }
 
         [HttpGet("upd")]
-        public IActionResult UpdateTransaction(int id)
+        public async Task<IActionResult> UpdateTransaction(int id)
         {
-            return View(_transactionLogic.ReadElement(new TransactionSearchModel { Id = id }));
+            return View(await _transactionLogic.ReadElement(new TransactionSearchModel { Id = id }));
         }
 
 		[HttpPost("upd")]
-		public IActionResult UpdateTransaction(TransactionBindingModel model)
+		public async Task<IActionResult> UpdateTransaction(TransactionBindingModel model)
         {
-            _transactionLogic.Update(model);
+            await _transactionLogic.Update(model);
             return Redirect("/transactions");
         }
 
 		[HttpPost("del")]
-		public IActionResult DeleteTransaction(int id)
+		public async Task<IActionResult> DeleteTransaction(int id)
         {
-            _transactionLogic.Delete(new TransactionBindingModel { Id = id });
+            await _transactionLogic.Delete(new TransactionBindingModel { Id = id });
             return Json(new { success = true });
         }
     }

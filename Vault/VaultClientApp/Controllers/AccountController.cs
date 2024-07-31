@@ -15,9 +15,9 @@ namespace VaultClientApp.Controllers
             _accountLogic = accountLogic;
         }
 
-		public IActionResult Index(int? number)
+		public async Task<IActionResult> Index(int? number)
         {
-		    return View(_accountLogic.ReadList(!number.HasValue ? null : new AccountSearchModel { Id = number }));
+		    return View(await _accountLogic.ReadList(!number.HasValue ? null : new AccountSearchModel { Id = number }));
 		}
 
         [HttpGet ("cr8")]
@@ -27,29 +27,29 @@ namespace VaultClientApp.Controllers
         }
 
         [HttpPost("cr8")]
-        public IActionResult CreateAccount(AccountBindingModel model)
+        public async Task<IActionResult> CreateAccount(AccountBindingModel model)
         {
-            _accountLogic.Create(model);
+            await _accountLogic.Create(model);
             return Redirect("/accounts");
         }
 
         [HttpGet ("upd")]
-        public IActionResult UpdateAccount(int id)
+        public async Task<IActionResult> UpdateAccount(int id)
         {
-            return View(_accountLogic.ReadElement(new AccountSearchModel { Id = id }));
+            return View(await _accountLogic.ReadElement(new AccountSearchModel { Id = id }));
         }
 
         [HttpPost ("upd")]
-        public IActionResult UpdateBrand(AccountBindingModel model)
+        public async Task<IActionResult> UpdateBrand(AccountBindingModel model)
         {
-            _accountLogic.Update(model);
+            await _accountLogic.Update(model);
             return Redirect("/accounts");
         }
 
         [HttpPost ("del")]
-        public IActionResult DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount(int id)
         {
-            _accountLogic.Delete(new AccountBindingModel { Id = id });
+            await _accountLogic.Delete(new AccountBindingModel { Id = id });
             return Json(new { success = true });
         }
     }

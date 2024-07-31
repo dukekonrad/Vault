@@ -18,10 +18,10 @@ namespace VaultBusinessLogic.BusinessLogic
             _transactionStorage = transactionStorage;
         }
 
-        public List<TransactionViewModel>? ReadList(TransactionSearchModel? model)
+        public async Task<List<TransactionViewModel>?> ReadList(TransactionSearchModel? model)
         {
             _logger.LogInformation("ReadList || Id: {Id}; AccountId: {AccountId}", model?.Id, model?.AccountId);
-            var list = model == null ? _transactionStorage.GetFullList() : _transactionStorage.GetFilteredList(model);
+            var list = model == null ? await _transactionStorage.GetFullList() : await _transactionStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList || Return null list");
@@ -31,14 +31,14 @@ namespace VaultBusinessLogic.BusinessLogic
             return list;
         }
 
-        public TransactionViewModel? ReadElement(TransactionSearchModel model)
+        public async Task<TransactionViewModel?> ReadElement(TransactionSearchModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
             _logger.LogInformation("ReadElement || Id: {Id}; AccountId: {AccountId}", model.Id, model.AccountId);
-            var transaction = _transactionStorage.GetElement(model);
+            var transaction = await _transactionStorage.GetElement(model);
             if (transaction == null)
             {
                 _logger.LogWarning("ReadElement || Transaction not found");
@@ -48,10 +48,10 @@ namespace VaultBusinessLogic.BusinessLogic
             return transaction;
         }
 
-        public bool Create(TransactionBindingModel model)
+        public async Task<bool> Create(TransactionBindingModel model)
         {
             CheckModel(model);
-            if (_transactionStorage.Insert(model) == null)
+            if (await _transactionStorage.Insert(model) == null)
             {
                 _logger.LogWarning("Create || Operation failed");
                 return false;
@@ -59,10 +59,10 @@ namespace VaultBusinessLogic.BusinessLogic
             return true;
         }
 
-        public bool Update(TransactionBindingModel model)
+        public async Task<bool> Update(TransactionBindingModel model)
         {
             CheckModel(model);
-            if (_transactionStorage.Update(model) == null)
+            if (await _transactionStorage.Update(model) == null)
             {
                 _logger.LogWarning("Update || Operation failed");
                 return false;
@@ -70,11 +70,11 @@ namespace VaultBusinessLogic.BusinessLogic
             return true;
         }
 
-        public bool Delete(TransactionBindingModel model)
+        public async Task<bool> Delete(TransactionBindingModel model)
         {
             CheckModel(model, false);
             _logger.LogInformation("Delete || Id: {Id}", model.Id);
-            if (_transactionStorage.Delete(model) == null)
+            if (await _transactionStorage.Delete(model) == null)
             {
                 _logger.LogWarning("Delete || Operation failed");
                 return false;
